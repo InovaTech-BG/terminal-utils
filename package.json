@@ -1,5 +1,5 @@
 {
-	"name": "@inovatechbg/colorize",
+	"name": "terminal-utils",
 	"version": "1.0.0",
 	"description": "",
 	"main": "./dist/index.js",
@@ -11,7 +11,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/InovaTech-BG/colorize.git"
+		"url": "git+https://github.com/InovaTech-BG/terminal-utils.git"
 	},
 	"publishConfig": {
 		"access": "public"
@@ -21,9 +21,9 @@
 	"author": "Brennon Gabriel de Oliveira",
 	"license": "MPL-2.0",
 	"bugs": {
-		"url": "https://github.com/InovaTech-BG/colorize/issues"
+		"url": "https://github.com/InovaTech-BG/terminal-utils/issues"
 	},
-	"homepage": "https://github.com/InovaTech-BG/colorize#readme",
+	"homepage": "https://github.com/InovaTech-BG/terminal-utils#readme",
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"@types/node": "^22.10.5",
