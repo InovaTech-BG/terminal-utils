@@ -2,7 +2,7 @@ export interface TerminalOptions {
 	input?: NodeJS.ReadableStream;
 	output?: NodeJS.WritableStream;
 	error?: NodeJS.WritableStream;
-	enconding?: NodeJS.BufferEncoding;
+	encoding?: NodeJS.BufferEncoding;
 }
 
 export class Terminal {
@@ -11,7 +11,7 @@ export class Terminal {
 	private error: NodeJS.WritableStream;
 	private encoding: NodeJS.BufferEncoding;
 
-	constructor(options: TerminalOtions = {}) {
+	constructor(options: TerminalOptions = {}) {
 		this.input = options.input || process.stdin;
 		this.output = options.output || process.stdout;
 		this.error = options.error || process.stderr;
