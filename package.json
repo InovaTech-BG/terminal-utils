@@ -1,6 +1,6 @@
 {
 	"name": "terminal-utils",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "",
 	"main": "./dist/index.js",
 	"files": ["./dist", "README.md", "LICENSE"],
