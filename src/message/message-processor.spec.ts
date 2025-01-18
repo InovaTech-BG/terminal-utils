@@ -1,6 +1,7 @@
 import { Writable } from "node:stream";
 import { Message } from "./message";
 import { MessageProcessor } from "./message-processor";
+import { reset } from "./styles";
 
 describe("MessageProcessor", () => {
 	let messageProcessor: MessageProcessor;
@@ -59,7 +60,7 @@ describe("MessageProcessor", () => {
 			const message = new Message("teste");
 			message.colorizeFg("blue");
 			messageProcessor.writeln(message);
-			expect(outputData[0]).toContain("teste\n");
+			expect(outputData[0]).toContain(`teste${reset()}\n`);
 			expect(outputData[0].includes("\u001b[")).toBe(true);
 			expect(outputData[0].includes("m")).toBe(true);
 		});
@@ -91,7 +92,7 @@ describe("MessageProcessor", () => {
 			const message = new Message("erro");
 			message.colorizeFg("red");
 			messageProcessor.errorWriteln(message);
-			expect(errorData[0]).toContain("erro\n");
+			expect(errorData[0]).toContain(`erro${reset()}\n`);
 			expect(errorData[0].includes("\u001b[")).toBe(true);
 			expect(errorData[0].includes("m")).toBe(true);
 		});
