@@ -1,6 +1,5 @@
 import { Message } from "./message/message";
 import { MessageProcessor } from "./message/message-processor";
-import { Question } from "./question/question";
 import { QuestionProcessor } from "./question/question-processor";
 import {
 	ChoiceQuestion,
@@ -8,8 +7,15 @@ import {
 	NumberedChoiceQuestion,
 	OpenTextQuestion,
 	OpenTextWithOptionsQuestion,
-} from "./question/question-processor";
+} from "./question/questions";
 import { TerminalBase, TerminalOptions } from "./terminal-base";
+
+export interface QuestionInput {
+	questionText: string;
+	options?: string[];
+	minSelections?: number;
+	maxSelections?: number;
+}
 
 export class Terminal extends TerminalBase {
 	private messageProcessor: MessageProcessor;
@@ -39,41 +45,57 @@ export class Terminal extends TerminalBase {
 	}
 
 	// Question methods
-	public async askOpenText(question: Question): Promise<string> {
+	public async askOpenText(question: QuestionInput): Promise<string> {
 		return this.questionProcessor.ask(
 			new OpenTextQuestion(question.questionText),
 		);
 	}
 
-	public async askChoice(question: Question): Promise<string> {
+	public async askChoice(question: QuestionInput): Promise<string> {
+		if (!question.options?.length) {
+			throw new Error("Options are required for choice questions");
+		}
 		return this.questionProcessor.ask(
-			new ChoiceQuestion(question.questionText, question.options || []),
+			new ChoiceQuestion(question.questionText, question.options),
 		);
 	}
 
-	public async askNumberedChoice(question: Question): Promise<string> {
+	public async askNumberedChoice(question: QuestionInput): Promise<string> {
+		if (!question.options?.length) {
+			throw new Error("Options are required for numbered choice questions");
+		}
 		return this.questionProcessor.ask(
-			new NumberedChoiceQuestion(question.questionText, question.options || []),
+			new NumberedChoiceQuestion(question.questionText, question.options),
 		);
 	}
 
-	public async askOpenTextWithOptions(question: Question): Promise<string> {
+	public async askOpenTextWithOptions(
+		question: QuestionInput,
+	): Promise<string> {
+		if (!question.options?.length) {
+			throw new Error(
+				"Options are required for open text with options questions",
+			);
+		}
 		return this.questionProcessor.ask(
-			new OpenTextWithOptionsQuestion(
-				question.questionText,
-				question.options || [],
-			),
+			new OpenTextWithOptionsQuestion(question.questionText, question.options),
 		);
 	}
 
-	public async askMultipleChoice(question: Question): Promise<string[]> {
-		return this.questionProcessor.ask(
-			new MultipleChoiceQuestion(
-				question.questionText,
-				question.options || [],
-				question.minSelections,
-				question.maxSelections,
-			),
+	public async askMultipleChoice(question: QuestionInput): Promise<string[]> {
+		if (!question.options?.length) {
+			throw new Error("Options are required for multiple choice questions");
+		}
+		const multipleChoiceQuestion = new MultipleChoiceQuestion(
+			question.questionText,
+			question.options,
+			question.minSelections,
+			question.maxSelections,
 		);
+		const result = await this.questionProcessor.ask(multipleChoiceQuestion);
+		if (!Array.isArray(result)) {
+			throw new Error("Expected array result from multiple choice question");
+		}
+		return result;
 	}
 }
