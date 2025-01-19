@@ -1,9 +1,31 @@
 {
 	"name": "terminal-utils",
-	"version": "v2.1.2",
+	"version": "v2.1.3",
 	"description": "",
 	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
 	"files": ["./dist", "README.md", "LICENSE"],
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.js"
+		},
+		"./question": {
+			"import": "./dist/question/index.js",
+			"require": "./dist/question/index.js"
+		},
+		"./message": {
+			"import": "./dist/message/index.js",
+			"require": "./dist/message/index.js"
+		}
+	},
+	"typesVersions": {
+		"*": {
+			"message": ["dist/message/index.d.ts"],
+			"question": ["dist/question/index.d.ts"]
+		}
+	},
 	"scripts": {
 		"test": "vitest run",
 		"test:watch": "vitest",
