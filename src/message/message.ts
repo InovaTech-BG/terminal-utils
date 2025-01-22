@@ -232,7 +232,7 @@ export class Message {
 		return this.message;
 	}
 
-	public colorizeFg(color: Color): void {
+	public colorizeFg(color: Color): this {
 		if (typeof color === "string") {
 			switch (color) {
 				case "black":
@@ -289,9 +289,10 @@ export class Message {
 		} else {
 			this.styleStack.push(fgColor(color));
 		}
+		return this;
 	}
 
-	public colorizeBg(color: Color): void {
+	public colorizeBg(color: Color): this {
 		if (typeof color === "string") {
 			switch (color) {
 				case "black":
@@ -348,45 +349,56 @@ export class Message {
 		} else {
 			this.styleStack.push(bgColor(color));
 		}
+		return this;
 	}
 
-	public applyBold(): void {
+	public applyBold(): this {
 		this.styleStack.push(bold());
+		return this;
 	}
 
-	public applyLight(): void {
+	public applyLight(): this {
 		this.styleStack.push(light());
+		return this;
 	}
 
-	public applyItalic(): void {
+	public applyItalic(): this {
 		this.styleStack.push(italic());
+		return this;
 	}
 
-	public applyUnderline(): void {
+	public applyUnderline(): this {
 		this.styleStack.push(underline());
+		return this;
 	}
 
-	public applySBlink(): void {
+	public applySBlink(): this {
 		this.styleStack.push(sBlink());
+		return this;
 	}
 
-	public applyRBlink(): void {
+	public applyRBlink(): this {
 		this.styleStack.push(rBlink());
+		return this;
 	}
 
-	public applyReverse(): void {
+	public applyReverse(): this {
 		this.styleStack.push(reverse());
+		return this;
 	}
 
-	public applyConceal(): void {
+	public applyConceal(): this {
 		this.styleStack.push(conceal());
+		return this;
 	}
 
-	public applyCrossedOut(): void {
+	public applyCrossedOut(): this {
 		this.styleStack.push(crossedOut());
+		return this;
 	}
 
-	public applyFont(fontNumber: number): void {
+	public applyFont(fontNumber: number): this {
 		this.styleStack.push(font(fontNumber));
+		return this;
 	}
 }
